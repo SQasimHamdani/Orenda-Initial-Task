@@ -1,0 +1,37 @@
+{% extends "HRManager/layout.html" %}
+
+
+{% block content %}
+<div class="card ">
+    <div class="card-header">
+        <h5 class="card-title">Add a new Employee</h5>
+    </div>
+    <div class="card-body">
+        {% if "Success" in message %}
+        <div class="alert alert-success" role="alert">{{message}}</div>
+        {% elif "Error" in message %}
+        <div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endif %}
+        <form action="{% url 'create' %}" method="POST" id="new_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="name" required>
+            <input type="text" name="email" id="email" placeholder="email" required>
+            <input type="text" name="cnic" id="cnic" placeholder="cnic" required>
+            <select name="department" id="department" placeholder="Type"
+                style="padding-left: 50px; padding-right: 50px;  padding-top: 40px; margin: 20px;" required>
+                <option value="" selected>------</option>
+                {% for department in departments%}
+
+                <option value="{{department.id}}">{{department.name}}</option>
+
+                {%endfor%}
+            </select>
+            <input type="file" accept=".png, .jpg, .jpeg" name="image" id="image" placeholder="image" required>
+            <button type="submit" class="wheel-btn">Add Employee</button>
+        </form>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}
